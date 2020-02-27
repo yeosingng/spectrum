@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import songFile from '../music/song.mp3'
+import { connect } from 'react-redux'
 
 class Visualizer extends Component {
   constructor(){
     super()
-    this.audio = new Audio(songFile)
+
   }
 
   render() {
     return (
-      <div>
-
-      </div>
+      <canvas ref={this.canvas} />
     )
   }
+
 }
 
-export default Visualizer
+const mapStateToProps = ({
+
+})
+
+export default connect(mapStateToProps, null)(Visualizer)

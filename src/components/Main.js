@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import Visualizer from './Visualizer'
+import MusicController from './MusicController'
 
 const MainContainer = styled.div`
   height: calc(100vh - 100px);
@@ -11,7 +11,7 @@ class Main extends Component {
   render() {
     return(
       <MainContainer>
-        <Visualizer />
+        <MusicController />
       </MainContainer>
     )
   }

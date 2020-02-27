@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import someReducer from './someReducer'
+import audioContext from './audioContext'
 
 export default combineReducers({
-  someReducer
+  audioContext
 })
