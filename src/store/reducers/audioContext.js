@@ -10,7 +10,6 @@ export const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case 'LOAD_AUDIO':
-
       const { audio, context } = action.payload
 
       const source = context.createMediaElementSource(audio)
@@ -32,6 +31,7 @@ export default (state = defaultState, action) => {
 
     case 'PLAY_AUDIO':
       state.audio.play()
+      state.context.resume()
       return {
         ...state,
         audioPlaying: true,
