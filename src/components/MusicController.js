@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import songFile from '../music/song.mp3'
+import songFile from '../music/song4.mp3'
 import { loadAudio, playAudio, pauseAudio } from '../store/actions/controlAudio'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -8,6 +8,7 @@ const ControlContainer = styled.div`
   display: flex;
   justify-content: center;
   height: fit-content;
+  margin-top: 30px;
 `
 
 class MusicController extends Component {

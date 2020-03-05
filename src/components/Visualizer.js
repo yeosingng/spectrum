@@ -2,17 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setCanvas } from '../store/actions/visualizeAudio'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 const CanvasContainer = styled.div`
   display: flex;
   justify-content: center;
 `
 
+const HEIGHT = 500
+const WIDTH = 1024
+
 class Visualizer extends Component {
   constructor(props){
     super(props)
     this.canvas = React.createRef()
     this.tick = this.tick.bind(this)
+
+    // this.tick = _.throttle(this.tick.bind(this), 1)
     this.props.setCanvas(this.canvas)
   }
 
@@ -38,21 +44,22 @@ class Visualizer extends Component {
 
     ctx.save()
     ctx.beginPath()
-    ctx.moveTo(startEndX, bottom)
-    ctx.lineTo(startEndX, endY)
-    ctx.lineTo(startEndX + 8, endY)
-    ctx.lineTo(startEndX + 8, bottom)
+    // ctx.moveTo(startEndX, bottom)
+    // ctx.lineTo(startEndX, endY)
+    // ctx.lineTo(startEndX + 8, endY)
+    // ctx.lineTo(startEndX + 8, bottom)
+
+    ctx.fillRect(startEndX, endY, 1, WIDTH - endY)
     ctx.stroke()
   }
 
   renderAnimation(canvas) {
     const { frequencyArray, audio } = this.props
     let ctx = canvas.getContext('2d')
-
-    ctx.clearRect(0, 0, 800, 400);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
 
     let i
-    for (i = 0; i < frequencyArray.length; i += 12 ) {
+    for (i = 0; i < frequencyArray.length; i++) {
       this.drawBar(ctx, i, frequencyArray[i])
     }
   }
@@ -60,7 +67,7 @@ class Visualizer extends Component {
   render() {
     return (
       <CanvasContainer>
-        <canvas ref={this.canvas} height='400' width='800' />
+        <canvas ref={this.canvas} height={HEIGHT} width={WIDTH} />
       </CanvasContainer>
     )
   }
