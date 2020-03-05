@@ -13,16 +13,24 @@ class Visualizer extends Component {
     super(props)
     this.canvas = React.createRef()
     this.tick = this.tick.bind(this)
-
     this.props.setCanvas(this.canvas)
   }
 
-  tick = () => {
-    const { frequencyArray } = this.props
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.audioPlaying !== this.props.audioPlaying) {
+      if (!prevProps.audioPlaying) {
+        this.rafId = requestAnimationFrame(this.tick)
+      } else {
+        cancelAnimationFrame(this.rafId)
+      }
+    }
+  }
 
-    this.renderAnimation(this.canvas)
-    this.analyser.getByteTimeDomainData(frequencyArray);
-    this.rafId = requestAnimationFrame(this.tick);
+  tick = () => {
+    const { frequencyArray, analyser } = this.props
+    this.renderAnimation(this.canvas.current)
+    analyser.getByteTimeDomainData(frequencyArray)
+    this.rafId = requestAnimationFrame(this.tick)
   }
 
   drawBar(ctx, startX, startY, endX, endY, color) {
@@ -34,9 +42,6 @@ class Visualizer extends Component {
   }
 
   renderAnimation(canvas) {
-    canvas.width = 800
-    canvas.height = 400
-
     let ctx = canvas.getContext('2d')
     this.drawBar(ctx)
   }
@@ -51,7 +56,9 @@ class Visualizer extends Component {
 }
 
 const mapStateToProps = ({ audioContext }) => ({
-  frequencyArray: audioContext.frequencyArray
+  frequencyArray: audioContext.frequencyArray,
+  audioPlaying: audioContext.audioPlaying,
+  analyser: audioContext.analyser,
 })
 
 const mapDispatchToProps = {
