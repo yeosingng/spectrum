@@ -33,17 +33,28 @@ class Visualizer extends Component {
     this.rafId = requestAnimationFrame(this.tick)
   }
 
-  drawBar(ctx, startX, startY, endX, endY, color) {
+  drawBar(ctx, startEndX, endY) {
+    const bottom = 400
+
     ctx.save()
     ctx.beginPath()
-    ctx.moveTo(50, 0)
-    ctx.lineTo(400, 50)
+    ctx.moveTo(startEndX, bottom)
+    ctx.lineTo(startEndX, endY)
+    ctx.lineTo(startEndX + 8, endY)
+    ctx.lineTo(startEndX + 8, bottom)
     ctx.stroke()
   }
 
   renderAnimation(canvas) {
+    const { frequencyArray, audio } = this.props
     let ctx = canvas.getContext('2d')
-    this.drawBar(ctx)
+
+    ctx.clearRect(0, 0, 800, 400);
+
+    let i
+    for (i = 0; i < frequencyArray.length; i += 12 ) {
+      this.drawBar(ctx, i, frequencyArray[i])
+    }
   }
 
   render() {
@@ -59,6 +70,7 @@ const mapStateToProps = ({ audioContext }) => ({
   frequencyArray: audioContext.frequencyArray,
   audioPlaying: audioContext.audioPlaying,
   analyser: audioContext.analyser,
+  audio: audioContext.audio
 })
 
 const mapDispatchToProps = {
