@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import songFile from '../music/song4.mp3'
+import songFile from '../music/song5.mp3'
 import { loadAudio, playAudio, pauseAudio } from '../store/actions/controlAudio'
 import { connect } from 'react-redux'
 import styled from 'styled-components'

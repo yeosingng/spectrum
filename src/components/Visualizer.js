@@ -7,9 +7,10 @@ import _ from 'lodash'
 const CanvasContainer = styled.div`
   display: flex;
   justify-content: center;
+  width: 1024px;
 `
 
-const HEIGHT = 500
+const HEIGHT = 256
 const WIDTH = 1024
 
 class Visualizer extends Component {
@@ -39,17 +40,14 @@ class Visualizer extends Component {
     this.rafId = requestAnimationFrame(this.tick)
   }
 
-  drawBar(ctx, startEndX, endY) {
-    const bottom = 400
-
+  drawBar(ctx, x, y) {
     ctx.save()
     ctx.beginPath()
-    // ctx.moveTo(startEndX, bottom)
-    // ctx.lineTo(startEndX, endY)
-    // ctx.lineTo(startEndX + 8, endY)
-    // ctx.lineTo(startEndX + 8, bottom)
 
-    ctx.fillRect(startEndX, endY, 1, WIDTH - endY)
+    ctx.moveTo(x, HEIGHT)
+    ctx.lineTo(x, y)
+
+    // ctx.fillRect(x, y, 1, WIDTH - endY)
     ctx.stroke()
   }
 
@@ -67,7 +65,7 @@ class Visualizer extends Component {
   render() {
     return (
       <CanvasContainer>
-        <canvas ref={this.canvas} height={HEIGHT} width={WIDTH} />
+        <canvas ref={this.canvas} height={HEIGHT} width={WIDTH} style={{ borderBottom: '1px solid light-gray'}} />
       </CanvasContainer>
     )
   }

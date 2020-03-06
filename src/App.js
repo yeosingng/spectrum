@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import Main from './components/Main'
+import Main from './views/Main'
 import Header from './components/Header'
 
 function App() {

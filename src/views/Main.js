@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import MusicController from './MusicController'
-import Visualizer from './Visualizer'
+import MusicController from '../components/MusicController'
+import Visualizer from '../components/Visualizer'
 
 const MainContainer = styled.div`
   height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 `
 
