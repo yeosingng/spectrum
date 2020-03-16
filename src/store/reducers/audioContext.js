@@ -1,3 +1,5 @@
+import addEffect from '../helpers/addEffect'
+
 export const defaultState = {
   audioPlaying: false,
   context: null,
@@ -5,9 +7,10 @@ export const defaultState = {
   analyser: null,
   audio: null,
   frequencyArray: null,
+  lastNode: null,
 }
 
-export default (state = defaultState, action) => {
+export const audioContext = (state = defaultState, action) => {
   switch (action.type) {
     case 'LOAD_AUDIO':
       const { audio, context } = action.payload
@@ -15,7 +18,6 @@ export default (state = defaultState, action) => {
       const source = context.createMediaElementSource(audio)
       const analyser = context.createAnalyser()
       analyser.smoothingTimeConstant = 1
-
 
       source.connect(analyser)
       analyser.connect(context.destination)
@@ -29,6 +31,7 @@ export default (state = defaultState, action) => {
         source,
         analyser,
         frequencyArray,
+        lastNode: analyser,
       }
 
     case 'PLAY_AUDIO':
@@ -46,7 +49,17 @@ export default (state = defaultState, action) => {
         audioPlaying: false,
       }
 
+    case 'ADD_EFFECT':
+      const newLastNode = addEffect(state.lastNode, action.payload)
+      // newLastNode.connect(context.destination)
+
+      return {
+        ...state,
+        lastNode: newLastNode,
+      }
+
     default:
       return state
   }
  }
+

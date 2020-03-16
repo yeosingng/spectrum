@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import songFile from '../music/song5.mp3'
+import songFile from '../music/song.mp3'
 import { loadAudio, playAudio, pauseAudio } from '../store/actions/controlAudio'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -40,7 +40,7 @@ class MusicController extends Component {
     return (
       <ControlContainer>
         <button onClick={this.onClickPlay}>PLAY</button>
-        <button onClick={this.onClickPause}>PAUSE</button>
+        <button onClick={this.onClickPause} style={{ marginLeft: 15 }}>PAUSE</button>
       </ControlContainer>
     )
   }

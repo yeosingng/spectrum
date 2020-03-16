@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import audioContext from './audioContext'
+import { audioContext, effectControl } from './audioContext'
 
 export default combineReducers({
   audioContext,

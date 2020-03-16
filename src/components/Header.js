@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const MainHeader = styled.div`
+const MainHeader = styled.header`
   display: flex;
   position: sticky;
   justify-content: center;

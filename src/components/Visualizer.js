@@ -8,6 +8,7 @@ const CanvasContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 1024px;
+  margin-top: 100px;
 `
 
 const HEIGHT = 256
@@ -17,9 +18,9 @@ class Visualizer extends Component {
   constructor(props){
     super(props)
     this.canvas = React.createRef()
-    this.tick = this.tick.bind(this)
+    // this.tick = this.tick.bind(this)
 
-    // this.tick = _.throttle(this.tick.bind(this), 1)
+    this.tick = _.throttle(this.tick.bind(this), 10)
     this.props.setCanvas(this.canvas)
   }
 
@@ -47,7 +48,6 @@ class Visualizer extends Component {
     ctx.moveTo(x, HEIGHT)
     ctx.lineTo(x, y)
 
-    // ctx.fillRect(x, y, 1, WIDTH - endY)
     ctx.stroke()
   }
 
@@ -75,7 +75,7 @@ const mapStateToProps = ({ audioContext }) => ({
   frequencyArray: audioContext.frequencyArray,
   audioPlaying: audioContext.audioPlaying,
   analyser: audioContext.analyser,
-  audio: audioContext.audio
+  audio: audioContext.audio,
 })
 
 const mapDispatchToProps = {
