@@ -3,27 +3,6 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { addEffect } from '../store/actions/audioEffects'
 
-const EffectsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  color: white;
-`
-
-const EffectSelector = styled.div`
-  display: flex;
-`
-
-const EffectsButton = styled.button`
-  margin-left: 15px;
-`
-
-const effects = [
-  'Pan',
-  'Reverb',
-  'Low Pass Filter',
-]
-
 class EffectsController extends Component {
   render() {
     const { addEffect } = this.props
@@ -54,3 +33,24 @@ const mapDispatchToProps = {
 }
 
 export default connect(null, mapDispatchToProps)(EffectsController)
+
+const EffectsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  color: white;
+`
+
+const EffectSelector = styled.div`
+  display: flex;
+`
+
+const EffectsButton = styled.button`
+  margin-left: 15px;
+`
+
+const effects = [
+  'Pan',
+  'Reverb',
+  'Low Pass Filter',
+]

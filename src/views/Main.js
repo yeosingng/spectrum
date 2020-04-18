@@ -5,20 +5,14 @@ import FadeIn from 'react-fade-in'
 import MusicController from '../components/MusicController'
 import Visualizer from '../components/Visualizer'
 import EffectsController from '../components/EffectsController'
-
-const MainContainer = styled.div`
-  height: calc(100vh - 100px);
-  display: flex;
-  width: 1024px;
-  flex-direction: column;
-  margin: auto;
-`
+import FileSelector from '../components/FileSelector'
 
 class Main extends Component {
   render() {
     return(
       <MainContainer>
         <FadeIn>
+          <FileSelector />
           <Visualizer />
           <MusicController />
           <EffectsController />
@@ -33,3 +27,11 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, null)(Main)
+
+const MainContainer = styled.div`
+  height: calc(100vh - 100px);
+  display: flex;
+  width: 1024px;
+  flex-direction: column;
+  margin: auto;
+`
