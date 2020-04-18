@@ -11,8 +11,7 @@ const CanvasContainer = styled.div`
   margin-top: 100px;
 `
 
-const HEIGHT = 256
-const WIDTH = 1024
+const HEIGHT = 350
 
 class Visualizer extends Component {
   constructor(props){
@@ -24,7 +23,7 @@ class Visualizer extends Component {
     this.props.setCanvas(this.canvas)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
     if (prevProps.audioPlaying !== this.props.audioPlaying) {
       if (!prevProps.audioPlaying) {
         this.rafId = requestAnimationFrame(this.tick)
@@ -52,9 +51,11 @@ class Visualizer extends Component {
   }
 
   renderAnimation(canvas) {
-    const { frequencyArray, audio } = this.props
+    const { frequencyArray } = this.props
     let ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, WIDTH, HEIGHT)
+    ctx.canvas.height = HEIGHT
+    ctx.canvas.width = window.innerWidth - 100
+    ctx.clearRect(0, 0, window.innerWidth - 100, HEIGHT)
 
     let i
     for (i = 0; i < frequencyArray.length; i++) {
@@ -65,7 +66,7 @@ class Visualizer extends Component {
   render() {
     return (
       <CanvasContainer>
-        <canvas ref={this.canvas} height={HEIGHT} width={WIDTH} style={{ borderBottom: '1px solid light-gray'}} />
+        <canvas ref={this.canvas} style={{ borderBottom: '1px solid light-gray'}} />
       </CanvasContainer>
     )
   }
