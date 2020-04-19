@@ -3,6 +3,8 @@
 An audio-spectrum visualizer utilizing the power of Web Audio Api.\
 Demo: https://spectrum-three.now.sh/
 
+<img src="https://media0.giphy.com/media/KD17KKPq6PDUJPxFkJ/giphy.gif" width="700" height="400" />
+
 # Setup
 
 The application can run by simply using\
