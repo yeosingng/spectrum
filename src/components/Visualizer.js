@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCanvas } from '../store/actions/visualizeAudio'
 import styled from 'styled-components'
 import _ from 'lodash'
 
@@ -20,7 +19,6 @@ class Visualizer extends Component {
     // this.tick = this.tick.bind(this)
 
     this.tick = _.throttle(this.tick.bind(this), 10)
-    this.props.setCanvas(this.canvas)
   }
 
   componentDidUpdate(prevProps, _prevState, _snapshot) {
@@ -40,26 +38,34 @@ class Visualizer extends Component {
     this.rafId = requestAnimationFrame(this.tick)
   }
 
-  drawBar(ctx, x, y) {
+  drawBar(ctx, xPos, yPos, width, padding) {
     ctx.save()
     ctx.beginPath()
 
-    ctx.moveTo(x, HEIGHT)
-    ctx.lineTo(x, y)
-
+    ctx.fillRect(xPos + padding, HEIGHT - yPos, width, yPos)
     ctx.stroke()
   }
 
   renderAnimation(canvas) {
     const { frequencyArray } = this.props
+
+    const width = window.innerWidth
+
     let ctx = canvas.getContext('2d')
     ctx.canvas.height = HEIGHT
-    ctx.canvas.width = window.innerWidth - 100
-    ctx.clearRect(0, 0, window.innerWidth - 100, HEIGHT)
+    ctx.canvas.width = width
+    ctx.clearRect(0, 0, width, HEIGHT)
+
+    const barWidth = Math.ceil(width / frequencyArray.length)
+    const padding = Math.floor((width - frequencyArray.length) / 2)
 
     let i
     for (i = 0; i < frequencyArray.length; i++) {
-      this.drawBar(ctx, i, frequencyArray[i])
+      const barHeightPercentage = frequencyArray[i]/255
+      const yPos = barHeightPercentage * HEIGHT
+
+      this.drawBar(ctx, i, yPos, barWidth, padding)
+      i = i + Math.ceil(barWidth)
     }
   }
 
@@ -79,8 +85,4 @@ const mapStateToProps = ({ audioContext }) => ({
   audio: audioContext.audio,
 })
 
-const mapDispatchToProps = {
-  setCanvas,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Visualizer)
+export default connect(mapStateToProps, null)(Visualizer)
