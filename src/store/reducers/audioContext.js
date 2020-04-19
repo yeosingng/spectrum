@@ -15,6 +15,10 @@ export const audioContext = (state = defaultState, action) => {
     case 'LOAD_AUDIO':
       const { audio, context } = action.payload
 
+      if (state.audio) {
+        state.audio.pause()
+      }
+
       const source = context.createMediaElementSource(audio)
       const analyser = context.createAnalyser()
       analyser.smoothingTimeConstant = 1
@@ -35,18 +39,30 @@ export const audioContext = (state = defaultState, action) => {
       }
 
     case 'PLAY_AUDIO':
-      state.audio.play()
-      state.context.resume()
+      if (state.audio) {
+        state.audio.play()
+        state.context.resume()
+
+        return {
+          ...state,
+          audioPlaying: true,
+        }
+      }
       return {
         ...state,
-        audioPlaying: true,
       }
 
     case 'PAUSE_AUDIO':
-      state.audio.pause()
+      if (state.audio) {
+        state.audio.pause()
+        return {
+          ...state,
+          audioPlaying: false,
+        }
+      }
+
       return {
         ...state,
-        audioPlaying: false,
       }
 
     case 'ADD_EFFECT':
