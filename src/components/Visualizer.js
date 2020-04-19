@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-const HEIGHT = 350
+const HEIGHT = 400
 
 class Visualizer extends Component {
   constructor(props){
     super(props)
     this.canvas = React.createRef()
-    // this.tick = this.tick.bind(this)
-
     this.tick = _.throttle(this.tick.bind(this), 10)
   }
 
@@ -34,6 +32,12 @@ class Visualizer extends Component {
   drawBar(ctx, xPos, yPos, width, padding) {
     ctx.save()
     ctx.beginPath()
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, HEIGHT)
+    gradient.addColorStop(0, 'red')
+    gradient.addColorStop(1, 'green')
+
+    ctx.fillStyle = gradient
     ctx.fillRect(xPos + padding, HEIGHT - yPos, width, yPos)
     ctx.stroke()
   }
@@ -63,7 +67,7 @@ class Visualizer extends Component {
 
   render() {
     return (
-      <CanvasContainer>
+      <CanvasContainer height={HEIGHT}>
         <canvas ref={this.canvas} style={{ borderBottom: '1px solid light-gray'}} />
       </CanvasContainer>
     )
@@ -82,5 +86,6 @@ export default connect(mapStateToProps, null)(Visualizer)
 const CanvasContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
+  min-height: ${({ height }) => `${height}px;`}
 `
