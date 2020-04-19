@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-const HEIGHT = 400
+// TODO possibly move to a config file
+const HEIGHT = 512
+const WIDTH = 1024
 
 class Visualizer extends Component {
   constructor(props){
@@ -29,7 +31,7 @@ class Visualizer extends Component {
     this.rafId = requestAnimationFrame(this.tick)
   }
 
-  drawBar(ctx, xPos, yPos, width, padding) {
+  drawBar(ctx, xPos, yPos, width) {
     ctx.save()
     ctx.beginPath()
 
@@ -38,37 +40,35 @@ class Visualizer extends Component {
     gradient.addColorStop(1, 'green')
 
     ctx.fillStyle = gradient
-    ctx.fillRect(xPos + padding, HEIGHT - yPos, width, yPos)
+    ctx.fillRect(xPos, HEIGHT - yPos, width, yPos)
     ctx.stroke()
   }
 
   renderAnimation(canvas) {
     const { frequencyArray } = this.props
 
-    const width = window.innerWidth
-
     let ctx = canvas.getContext('2d')
     ctx.canvas.height = HEIGHT
-    ctx.canvas.width = width
-    ctx.clearRect(0, 0, width, HEIGHT)
+    ctx.canvas.width = WIDTH
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
 
-    const barWidth = Math.ceil(width / frequencyArray.length)
-    const padding = Math.floor((width - frequencyArray.length) / 2)
+    const barWidth = Math.ceil(WIDTH / frequencyArray.length)
 
     let i
     for (i = 0; i < frequencyArray.length; i++) {
       const barHeightPercentage = frequencyArray[i]/255
       const yPos = barHeightPercentage * HEIGHT
 
-      this.drawBar(ctx, i, yPos, barWidth, padding)
-      i = i + Math.ceil(barWidth)
+      this.drawBar(ctx, i, yPos, barWidth)
     }
   }
 
   render() {
     return (
       <CanvasContainer height={HEIGHT}>
-        <canvas ref={this.canvas} style={{ borderBottom: '1px solid light-gray'}} />
+        <BoxShadow>
+          <canvas ref={this.canvas} style={{ borderBottom: '1px solid light-gray', }} />
+        </BoxShadow>
       </CanvasContainer>
     )
   }
@@ -88,4 +88,14 @@ const CanvasContainer = styled.div`
   justify-content: center;
   margin-top: 50px;
   min-height: ${({ height }) => `${height}px;`}
+  overflow-x: hidden;
+  height: 550px;
+`
+
+const BoxShadow = styled.div`
+  display: flex;
+  justify-content: center;
+  box-shadow: 7px 15px 31px -13px rgba(0,0,0,0.75);
+  width: 1024px;
+  height: 512px;
 `

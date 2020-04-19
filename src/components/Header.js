@@ -10,6 +10,7 @@ const MainHeader = styled.header`
   font-size: 30px;
   background-color: #302f2f;
   color: white;
+  box-shadow: -2px 20px 16px -26px rgba(0,0,0,0.75);
 `
 
 const Header = () => (
