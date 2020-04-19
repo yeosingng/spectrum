@@ -15,7 +15,7 @@ class Main extends Component {
           <FileSelector />
           <Visualizer />
           <MusicController />
-          <EffectsController />
+          {/* <EffectsController /> */}
         </FadeIn>
       </MainContainer>
     )
