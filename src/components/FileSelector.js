@@ -37,7 +37,7 @@ const mapDispatchToProps = {
 export default connect(null, mapDispatchToProps)(FileSelector)
 
 const FileSelectorContainer = styled.div`
-  margin: 20px;
+  margin: 40px;
   color: white;
   display: flex;
   justify-content: center;

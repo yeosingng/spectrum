@@ -3,13 +3,6 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-const CanvasContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 1024px;
-  margin-top: 100px;
-`
-
 const HEIGHT = 350
 
 class Visualizer extends Component {
@@ -41,7 +34,6 @@ class Visualizer extends Component {
   drawBar(ctx, xPos, yPos, width, padding) {
     ctx.save()
     ctx.beginPath()
-
     ctx.fillRect(xPos + padding, HEIGHT - yPos, width, yPos)
     ctx.stroke()
   }
@@ -86,3 +78,9 @@ const mapStateToProps = ({ audioContext }) => ({
 })
 
 export default connect(mapStateToProps, null)(Visualizer)
+
+const CanvasContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+`

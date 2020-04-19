@@ -31,7 +31,7 @@ export default connect(mapStateToProps, null)(Main)
 const MainContainer = styled.div`
   height: calc(100vh - 100px);
   display: flex;
-  width: 1024px;
   flex-direction: column;
   margin: auto;
+  width: calc(max(calc(100vw - 200px), 320px));
 `
