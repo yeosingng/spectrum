@@ -11,6 +11,7 @@ const MainHeader = styled.header`
   background-color: #302f2f;
   color: white;
   box-shadow: -2px 20px 16px -26px rgba(0,0,0,0.75);
+  font-family: Roboto, sans-serif;
 `
 
 const Header = () => (
